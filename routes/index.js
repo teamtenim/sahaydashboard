@@ -18,6 +18,77 @@ router.get('/', ensureAuthenticated, (req, res) => {
 	}
 })
 
+router.get('/view', (req, res) => {
+	User.find({}, function (err, users) {
+		if (err) {
+			console.log(err)
+		}
+		reqArray = []
+		// console.log(users)
+		users.forEach((user) => {
+			newbro = []
+			user.requests.forEach((request) => {
+				var data = {}
+				data.reqdata = request
+				data.user = {}
+				data.user.email = user.email
+				data.user.name = user.name
+				data.user.address = user.address
+				data.user.id = user._id
+				newbro.push(data)
+				// console.log(data)
+				reqArray.push(data)
+			})
+		})
+
+		return res.render('view', { users: reqArray })
+		// return res.send(reqArray)
+	})
+})
+
+router.post('/request', ensureAuthenticated, async (req, res) =>
+	User.findById(req.user.id, function (err, user) {
+		user.status.requested = 1
+		user.status.need = req.body.request
+		user.status.dsc = req.body.dsc
+
+		user.save()
+
+		req.flash('success_msg', 'Global request sent successfully.')
+		return res.redirect('/view')
+	})
+)
+
+router.post('/add-request', ensureAuthenticated, async (req, res) =>
+	User.findById(req.user.id, function (err, user) {
+		var newArray = user.requests
+		var reqbro = {}
+		reqbro.urgent = req.body.urgent
+		reqbro.need = req.body.request
+		reqbro.description = req.body.dsc
+		newArray.push(reqbro)
+		console.log(newArray)
+		user.requests = newArray
+		user.save()
+		// console.log(req.body)
+
+		req.flash('success_msg', 'Global request sent successfully.')
+		return res.redirect('/view')
+	})
+)
+
+router.post('/del-request', ensureAuthenticated, async (req, res) =>
+	User.findById(req.user.id, function (err, user) {
+		user.status.requested = 0
+		user.status.need = ''
+
+		user.save()
+
+		req.flash('success_msg', 'Request deleted successfully')
+		return res.redirect('/view')
+	})
+)
+
 router.post('/set', ensureAuthenticated, async (req, res) =>
 	User.findById(req.user.id, function (err, user) {
 		user.capacity.current = req.body.current
@@ -51,6 +122,18 @@ router.get('/login', forwardAuthenticated, (req, res) => {
 // Register Page
 router.get('/register', forwardAuthenticated, (req, res) => {
 	return res.render('register')
+})
+
+router.get('/edit', ensureAuthenticated, (req, res) => {
+	return res.render('edit')
+})
+
+router.post('/edit', (req, res) => {
+	User.findById(req.user.id, function (err, user) {
+		user.email = req.body.email
+		user.username = req.body.username
+		user.save()
+	})
 })
 
 // Register Post

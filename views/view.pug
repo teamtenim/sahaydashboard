@@ -1,0 +1,47 @@
+extends layout
+block content
+	.container
+		.dash
+			h1.semi.zero View hospitals
+			h5.subtext Help others out, or request for help
+			.flex-center
+				.six.columns
+					.card
+						if success_msg
+							h5.center= success_msg
+						form(action='/add-request' method='POST')
+							h3.center.semi Request
+							p.center(style="margin-bottom: 1em") Explain your problem, and how others can help
+							input.login#username(type='text' name='request' placeholder='Problem' required autocomplete="off")
+							label(for="") Description
+							textarea(type='text' name='dsc' placeholder='Description' required autocomplete="off")
+							.thingri(style="display: flex; justify-content: flex-start; align-items: center;")
+								input(type="checkbox" style="width: auto !important;" id="urgent" name="urgent" value='true')
+								label(for="urgent" style="margin-top: -0.6em") &nbsp;Urgent?
+
+							.flex-center
+								button.cool.zero(type='submit' style="margin-top: 1em;") Request help
+
+			#dashstuff
+				h1.center.semi(style="margin-bottom: 0.5em") Hospitals
+				br
+				.row
+					.flex-center
+						.nine.columns
+							each user in users.reverse()
+								if !user.reqdata.complete
+									.card
+										h3.center.semi #{user.user.name}	
+										h4.center(style="margin-bottom: 0.6em")= user.reqdata.need
+										if user.reqdata.urgent
+											h5.center.urgent
+												i.fas.fa-circle.red
+												| Urgent
+											br
+										.flex-center
+											a(href=`/help?id=${user.user.id}`)
+												button.cool.zero(style="margin-top: 1em") Help them
+
+				br
+				br
+				br
