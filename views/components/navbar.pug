@@ -1,0 +1,14 @@
+nav
+	.container
+		.flexer
+			div
+				a.minet(href="/")
+					img(src="/img/logo.svg" alt="" style="width: 1.5em" draggable="false")
+			div.rightlink
+				if !currentUser
+					a(href="/register") Register
+					a(href="/login") Login
+				if currentUser
+					a(href="/view") Hospitals
+					a(href="/") Dashboard
+					a(href='/logout') Logout

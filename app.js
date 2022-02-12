@@ -43,14 +43,21 @@ mongoose
 	.then(() => console.log('MongoDB Connected'))
 	.catch((err) => console.log(err))
 
+//Setting view engine
+app.set('view engine', 'pug')
+app.set('views', __dirname + '/views')
+
 // Express body parser
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
+//Setting public directory
+app.use(express.static('public'))
+
 // Sessions
 app.use(
 	session({
-		secret: 'yooMINET',
+		secret: 'KissyKissyAnus',
 		resave: false,
 		saveUninitialized: false,
 		store: new MongoStore({ mongooseConnection: mongoose.connection })
@@ -65,6 +72,7 @@ app.use(passport.session())
 app.use(flash())
 
 // Global variables
+
 app.use((req, res, next) => {
 	res.locals.currentUser = req.user
 	next()
@@ -78,6 +86,7 @@ app.use(function (req, res, next) {
 })
 
 // Routes
+app.use('/', require('./routes/index.js'))
 app.use('/api', require('./routes/api.js'))
 
 //404

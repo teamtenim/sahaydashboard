@@ -1,0 +1,89 @@
+extends layout
+block content
+	.container
+		.dash
+			h1.semi.zero Dashboard
+			h5 Your personal dashboard at Sahay.
+			if success_msg
+				h5= success_msg
+
+			#dashstuff
+				.row
+					form#startup(action='/set' method='POST')
+						.six.columns
+							.card
+								h5.semi.teamname Hi, #{currentUser.name}	
+								label(for='username') Current Capacity
+								input.login#username(type='number' name='current' placeholder='Current Capacity' value=currentUser.capacity.current autocomplete="off")
+								label(for='username') Maximum Capacity
+								input.login#username(type='number' name='max' placeholder='Maximum Capacity' value=currentUser.capacity.total autocomplete="off")
+								label(for="") Masks
+								input(type="number" name='masks' placeholder="Masks" value=currentUser.items.masks)
+								label(for="") Gloves
+								input(type="number" name='gloves' placeholder="Gloves" value=currentUser.items.gloves)
+								label(for="") Remedesivir
+								input(type="number" name='remedesivir' placeholder="Remedesivir" value=currentUser.items.remedesivir||"")
+								label(for="") Ventilators free to use
+								input(type="number" name='ventilators' placeholder="Ventilators" value=currentUser.items.ventilators)
+								label(for="") Oxygen Cylinders free to use
+								input(type="number" name='oxygenCylinder' placeholder="Oxygen Cylinders" value=currentUser.items.oxygenCylinder)
+								label(for="") Beds
+								input(type="number" name='beds' placeholder="Beds" value=currentUser.items.beds)
+								label(for="") PPE Kits
+								input(type="number" name='ppeKits' placeholder="PPE Kits" value=currentUser.items.ppeKits)
+								label(for="") Pulse Oximeters
+								input(type="number" name='pulseOximeters' placeholder="Pulse Oximeters" value=currentUser.items.pulseOximeters||"")
+								label(for="") Blood Pressure Monitors
+								input(type="number" name='bloodPressureMonitors' placeholder="Blood Pressure Monitors" value=currentUser.items.bloodPressureMonitors)
+								label(for="") Heart Rate Monitors
+								input(type="number" name='heartRateMonitors' placeholder="Heart Rate Monitors" value=currentUser.items.heartRateMonitors)
+
+								.flex-center
+									button.cool(type="submit" style="margin-top: 2em") Save
+
+						.six.columns
+							.card
+								h2.semi.center Hospital Accomodation
+								img(src="/img/progress.svg" alt="" draggable="false" style="margin: 2em 0 0 0")
+								p
+									span.purp #{currentUser.capacity.current} 
+									| / 
+									span.purp #{currentUser.capacity.total}
+
+							.card
+								h2.semi.center Requests
+								h5.center Help is here!
+								.card.offer
+									h5 AIIMS Hospital has offered to help you out on request "Need Gloves"
+									//- a(href="#") Contact
+								.card.offer
+									h5 Max Hospital requires "PPE Kits"!
+									//- a(href="#") Contact
+
+							.card
+								h2.semi.center Notifications
+								ul.notifs
+									if currentUser.items.remedesivir < currentUser.capacity.current
+										li You're running low on Remedesivir
+									if currentUser.items.masks < currentUser.capacity.current
+										li You're running low on Masks
+									if currentUser.items.gloves < currentUser.capacity.current
+										li You're running low on Gloves
+									if currentUser.items.ppeKits < currentUser.capacity.current
+										li You're running low on PPE Kits
+									if currentUser.items.ventilators < currentUser.capacity.current
+										li You're running low on Ventilators
+									if currentUser.items.oxygenCylinder < currentUser.capacity.current
+										li You're running low on free Oxygen Cylinders
+									if currentUser.items.beds < currentUser.capacity.current
+										li You're running low on Beds
+									if currentUser.items.pulseOximeters < currentUser.capacity.current
+										li You're running low on Pulse Oximeters
+									if currentUser.items.bloodPressureMonitors < currentUser.capacity.current
+										li You're running low on Blood Pressure Monitors
+									if currentUser.items.heartRateMonitors < currentUser.capacity.current
+										li You're running low on Heart Rate Monitors
+
+	br
+	br
+	br

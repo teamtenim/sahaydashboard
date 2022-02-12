@@ -1,0 +1,52 @@
+extends layout
+
+block content
+	.container
+		#login
+			section
+				.flex-center
+					.eight.columns
+						h1.semi.center Set Up
+						h5.center Set up your hospital and get started.
+						h5.center Add all your equipment, and we'll take care of the rest
+						form#startup(action='/set' method='POST')
+							.card(style='margin: 4em 0;')
+								label(for='username') Current Capacity
+								input.login#username(type='number' name='current' placeholder='Current Capacity' required autocomplete="off")
+								label(for='username') Maximum Capacity
+								input.login#username(type='text' name='max' placeholder='Maximum Capacity' required autocomplete="off")
+								br
+
+							.card(style='margin-bottom: 3em;')
+								h4.center Register your items
+
+
+								label(for='username') Masks
+								input.login#username(type='number' name='masks' placeholder='Masks' required autocomplete="off")
+								label(for='username') Gloves
+								input.login#username(type='text' name='gloves' placeholder='Gloves' required autocomplete="off")
+								label(for='username') Remedesivir
+								input.login#username(type='text' name='remedesivir' placeholder='Remedesivir' required autocomplete="off")
+								label(for='username') Ventilators
+								input.login#username(type='text' name='ventilators' placeholder='Ventilators' required autocomplete="off")
+								label(for='username') Oxygen Cylinders
+								input.login#username(type='text' name='oxygenCylinder' placeholder='Oxygen Cylinders' required autocomplete="off")
+								label(for='username') Beds
+								input.login#username(type='text' name='beds' placeholder='Beds' required autocomplete="off")
+								label(for='username') PPE Kits
+								input.login#username(type='text' name='ppeKits' placeholder='PPE Kits' required autocomplete="off")
+								label(for='username') Pulse Oximeters
+								input.login#username(type='text' name='pulseOximeters' placeholder='Pulse Oximeters' required autocomplete="off")
+								label(for='username') Blood Pressure Monitors
+								input.login#username(type='text' name='bloodPressureMonitors' placeholder='Blood Pressure Monitors' required autocomplete="off")
+								label(for='username') Heart Rate Monitor
+								input.login#username(type='text' name='heartRateMonitors' placeholder='Heart Rate Monitor' required autocomplete="off")
+
+							.flex-center
+								button.cool(type='submit') Save
+							if success_msg
+								h5= success_msg
+							if error_msg
+								h5= error_msg
+							if message
+								h5= message

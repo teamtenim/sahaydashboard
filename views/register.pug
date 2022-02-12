@@ -1,0 +1,58 @@
+extends layout
+
+block content
+	.container
+		section
+			.flex-center
+				.six.columns
+					h1.semi.center.zero Register
+					h5.center Get started with managing your hospital better with Sahay.
+					br
+					form#regfb(action='/register' method='POST')
+						label(for='username') Hospital Name
+						input.login#username(type='text' name='name' placeholder='Name' required autocomplete="off")
+						label(for='username') Username
+						input.login#pNum(type='text' name='username' placeholder='Username' required autocomplete="off")
+						label(for='username') Phone Number
+						input.login#phonenum(type='number' name='pNumber' placeholder='Phone Number' required autocomplete="off")
+						label(for='username') Address
+						input.login#ema(type='text' name='address' placeholder='Address' required autocomplete="off")
+						label(for='username') Email
+						input.login#emailfb(type='text' name='email' placeholder='Email' required autocomplete="off")
+						label(for='password') Password
+						input.login#passwordfb(type='password' name='password' placeholder='Password' required autocomplete="off")
+						br
+						h5.center#error 
+						p.center Already have an account? 
+							a(href='/login') Login
+						.flex-center
+							button.cool(type='submit') Register
+						if success_msg
+							h5= success_msg
+						if error_msg
+							h5= error_msg
+						if message
+							h5= message
+						br
+						br
+
+	script(src='https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js')
+	script(src='https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js')
+
+	script.
+		// Paste your firebaseConfig here
+		const firebaseConfig = {
+			apiKey: "AIzaSyB0Gs7c8U_6LPVc3or_racPbmq5KTf-6sI",
+			authDomain: "medica-5d724.firebaseapp.com",
+			databaseURL: "https://medica-5d724.firebaseio.com",
+			projectId: "medica-5d724",
+			storageBucket: "medica-5d724.appspot.com",
+			messagingSenderId: "376047253175",
+			appId: "1:376047253175:web:354edc0b58a0ef12feff32",
+			measurementId: "G-BHBSVK9M40"
+		};
+		// Initialize Firebase
+		firebase.initializeApp(firebaseConfig);
+		const auth = firebase.auth();
+
+	script(src='/js/firebase.js')

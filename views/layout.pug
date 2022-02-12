@@ -1,0 +1,27 @@
+//- Made by Arhaan Bahadur -> Instagram: @arhaan_bahadur
+doctype html
+html
+	head
+		meta(charset='utf-8')
+		title Sahay
+		meta(charset='utf-8')
+		meta(name='author' content='Arhaan Bahadur')
+		meta(name='description' content="Sahay is best app.")
+		meta(name='viewport' content='width=device-width, initial-scale=1')
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js')
+		script(src="https://kit.fontawesome.com/53f1b26a84.js" crossorigin="anonymous")
+		link(rel="stylesheet" type='text/css' href="/css/skeleton.css")
+		link(rel='stylesheet' type='text/css' href='/css/style.css')
+		script(src="https://kit.fontawesome.com/53f1b26a84.js" crossorigin="anonymous")
+		link(rel='icon' type='image/png' href='/img/logo.svg')
+		link(rel='apple-touch-icon-precomposed' href='/img/logo.svg')
+		meta(name='theme-color' content='#CE696C')
+
+	body
+		include ./components/navbar
+
+		block content
+
+		include ./components/footer
+
+		script(src='/js/main.js')

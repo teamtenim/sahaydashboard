@@ -1,0 +1,28 @@
+extends layout
+
+block content
+	.container
+		#login
+			section
+				.flex-center
+					.six.columns
+						h1.semi.center Login
+						h5.center Making online, the new normal.
+						form#startup(action='/login' method='POST')
+							label(for='email') Email
+							input.login#username(type='text' name='email' placeholder='Enter Email' required autocomplete="off")
+							label(for='password') Password
+							input.login(type='password' name='password' placeholder='Enter Password' required autocomplete="off")
+							br
+							p.center No Account? 
+								a(href='/register') Register
+							.flex-center
+								button.cool(type='submit') Login
+							if success_msg
+								h5.center= success_msg
+							if error_msg
+								h5.center= error_msg
+							if message
+								h5.center= message
+
+			.u-cf

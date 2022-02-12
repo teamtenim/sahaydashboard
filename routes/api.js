@@ -2,6 +2,10 @@ const express = require('express')
 const router = express.Router()
 const User = require('../models/user')
 
+router.get('/', (req, res) => {
+	return res.send('Welcome to the Sahay API')
+})
+
 //get all hospitals
 router.get('/hospitals', (req, res) => {
 	User.find({}, { password: 0 }).then((users) => {
